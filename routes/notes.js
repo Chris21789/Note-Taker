@@ -11,7 +11,7 @@ notes.post('/', (req, res) => {
     if(title && text) {
         const newNotes = {
             title,
-            test,
+            text,
         };
 
         readAndAppend(newNotes, './db/db.json');
