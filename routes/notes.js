@@ -15,7 +15,7 @@ notes.get("/:note_id", (req, res) => {
   readFromFile("./db/notes.json")
     .then((data) => JSON.parse(data))
     .then((json) => {
-      const result = json.filter((note) => note.note_id === noteId);
+      const result = json.filter((note) => note.id === noteId);
       return result.length > 0
         ? res.json(result)
         : res.json("No note with that ID");
@@ -27,7 +27,7 @@ notes.delete("/:note_id", (req, res) => {
   readFromFile("./db/notes.json")
     .then((data) => JSON.parse(data))
     .then((json) => {
-      const result = json.filter((note) => note.note_id !== noteId);
+      const result = json.filter((note) => note.id !== noteId);
       writeToFile("./db/notes.json", result);
       res.json(`Note ${noteId} has been deleted.`);
     });
@@ -40,7 +40,7 @@ notes.post("/", (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uuidv4(),
+      id: uuidv4(),
     };
 
     readAndAppend(newNote, "./db/notes.json");
